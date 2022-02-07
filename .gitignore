@@ -1,0 +1,6 @@
+!ConsoleApp1/
+
+ConsoleApp1/*
+!ConsoleApp1/Shard/
+
+.vs/*
