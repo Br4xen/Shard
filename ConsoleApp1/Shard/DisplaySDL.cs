@@ -6,6 +6,15 @@
 *       
 *   Note that it extends from DisplayText, which also uses SDL.  
 *   
+*   Processor handles it because surfaces are stored in memory. 
+*   
+*   Textures solves this however, because they are offloaded to GPU.
+*   
+*   Surfaces can be changed easier than textures however, so they are good for pre-processing.
+*   
+*   Possiblle to change between surface and texture.
+*   
+*   Preprocessing phase might be a good task (But not very relevant.) 
 *   @author Michael Heron
 *   @version 1.0
 *   
@@ -52,7 +61,7 @@ namespace Shard
 
     class DisplaySDL : DisplayText
     {
-        private List<Transform> _toDraw;
+        private List<Transform> _toDraw; // List of transforms to draw.
         private List<Line> _linesToDraw;
         private List<Circle> _circlesToDraw;
         private Dictionary<string, IntPtr> spriteBuffer;
@@ -69,6 +78,9 @@ namespace Shard
 
         }
 
+        // Potential task. 
+        // When a texture is loaded. Get the height and width from the sprite and set the transform accordingly.
+        // It could be argued it should be the other way around.
         public IntPtr loadTexture(Transform trans)
         {
             IntPtr ret;
@@ -77,8 +89,10 @@ namespace Shard
             int w;
             int h;
 
+            // Runs other function.
             ret = loadTexture(trans.SpritePath);
 
+            // Sets transform based on image that was loaded.
             SDL.SDL_QueryTexture(ret, out format, out access, out w, out h);
             trans.Ht = h;
             trans.Wid = w;
@@ -89,21 +103,26 @@ namespace Shard
         }
 
 
+        // Handles memoization for other load function.
         public IntPtr loadTexture(string path)
         {
             IntPtr img;
 
+            // Have we loaded this texture before?
             if (spriteBuffer.ContainsKey(path))
             {
                 return spriteBuffer[path];
             }
 
+            //Loads it in as a surface
             img = SDL_image.IMG_Load(path);
 
             Debug.getInstance().log("IMG_Load: " + SDL_image.IMG_GetError());
 
+            // Create a texture.
             spriteBuffer[path] = SDL.SDL_CreateTextureFromSurface(_rend, img);
 
+            // Set a blend mode. (Handles alpha transperency channel.
             SDL.SDL_SetTextureBlendMode(spriteBuffer[path], SDL.SDL_BlendMode.SDL_BLENDMODE_BLEND);
 
             return img;
@@ -206,6 +225,7 @@ namespace Shard
             _linesToDraw.Add(l);
         }
 
+        // Draws sprites
         public override void display()
         {
 
@@ -224,16 +244,19 @@ namespace Shard
 
                 var sprite = loadTexture(trans);
 
+                //Size
                 sRect.x = 0;
                 sRect.y = 0;
                 sRect.w = (int)(trans.Wid * trans.Scalex);
                 sRect.h = (int)(trans.Ht * trans.Scaley);
 
+                //Position
                 tRect.x = (int)trans.X;
                 tRect.y = (int)trans.Y;
                 tRect.w = sRect.w;
                 tRect.h = sRect.h;
 
+                //Draws it. Rectangle, texture, size, position, rotation, non important, Flip according to a axis (No flip in this case. 
                 SDL.SDL_RenderCopyEx(_rend, sprite, ref sRect, ref tRect, (int)trans.Rotz, IntPtr.Zero, SDL.SDL_RendererFlip.SDL_FLIP_NONE);
             }
 
@@ -249,7 +272,7 @@ namespace Shard
                 SDL.SDL_RenderDrawLine(_rend, l.Sx, l.Sy, l.Ex, l.Ey);
             }
 
-            // Show it off.
+            // Do same for text then done. Show it off.
             base.display();
 
 

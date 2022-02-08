@@ -121,6 +121,7 @@ namespace Shard
 
         }
 
+        // Transient = No longer within the screen. 
         public void checkDestroyMe()
         {
 

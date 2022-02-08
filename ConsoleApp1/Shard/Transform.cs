@@ -93,7 +93,7 @@ namespace Shard
         }
 
 
-
+        // Rotates the forward matrix
         public void rotate(float dir)
         {
             rotz += (float)dir;
@@ -106,7 +106,6 @@ namespace Shard
 
             forward.X = cos;
             forward.Y = sin;
-
 
             right.X = -1 * forward.Y;
             right.Y = forward.X;

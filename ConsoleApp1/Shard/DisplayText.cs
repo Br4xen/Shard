@@ -16,6 +16,7 @@ namespace Shard
 {
 
     // We'll be using SDL2 here to provide our underlying graphics system.
+    // Decides
     class TextDetails
     {
         string text;
@@ -23,7 +24,7 @@ namespace Shard
         SDL.SDL_Color col;
         int size;
         IntPtr font;
-        IntPtr lblText;
+        IntPtr lblText; // Surface used to draw.
 
 
         public TextDetails(string text, double x, double y, SDL.SDL_Color col, int spacing)
@@ -64,13 +65,16 @@ namespace Shard
         public IntPtr LblText { get => lblText; set => lblText = value; }
     }
 
+    // Handles the drawing of objects.
     class DisplayText : Display
     {
         protected IntPtr _window, _rend;
         uint _format;
         int _access;
-        private List<TextDetails> myTexts;
+        private List<TextDetails> myTexts; //Buffer of things to be drawn
         private Dictionary<string, IntPtr> fontLibrary;
+
+        // Clears the buffer
         public override void clearDisplay()
         {
             foreach (TextDetails td in myTexts)
@@ -103,9 +107,11 @@ namespace Shard
 
         }
 
+        // Draws everything
         private void draw()
         {
 
+            //Draws each in turn
             foreach (TextDetails td in myTexts)
             {
 
@@ -122,6 +128,7 @@ namespace Shard
 
             }
 
+            // We are done, commit to screen. 
             SDL.SDL_RenderPresent(_rend);
 
         }
