@@ -99,7 +99,6 @@ namespace Shard
             trans.recalculateCentre();
 
             return ret;
-
         }
 
 
@@ -247,8 +246,8 @@ namespace Shard
                 //Size
                 sRect.x = 0;
                 sRect.y = 0;
-                sRect.w = (int)(trans.Wid * trans.Scalex);
-                sRect.h = (int)(trans.Ht * trans.Scaley);
+                sRect.w = (int)(trans.Wid * trans.Scalex * Math.Abs(trans.Y / 500));
+                sRect.h = (int)(trans.Ht * trans.Scaley * Math.Abs(trans.Y / 500));
 
                 //Position
                 tRect.x = (int)trans.X;
