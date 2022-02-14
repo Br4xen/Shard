@@ -226,6 +226,8 @@ namespace Shard
             return false;
         }
 
+        // 20ms ticks
+        // Works. but dont let objects move to quickly. 
         public bool update()
         {
             CollisionHandler ch, ch2;

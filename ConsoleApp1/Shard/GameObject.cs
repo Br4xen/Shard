@@ -55,6 +55,7 @@ namespace Shard
             return str;
         }
 
+        // Enable physics for this specific object
         public void setPhysicsEnabled()
         {
             MyBody = new PhysicsBody(this);

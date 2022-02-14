@@ -279,6 +279,7 @@ namespace Shard
             MinAndMaxY = getMinAndMax(false);
         }
 
+        // Where things happen
         public void physicsTick()
         {
             List<Vector2> toRemove;
