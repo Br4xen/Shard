@@ -61,7 +61,7 @@ namespace Shard
 
     class DisplaySDL : DisplayText
     {
-        private List<Transform> _toDraw; // List of transforms to draw.
+        private SortedSet<Transform> _toDraw; // List of transforms to draw.
         private List<Line> _linesToDraw;
         private List<Circle> _circlesToDraw;
         private Dictionary<string, IntPtr> spriteBuffer;
@@ -71,7 +71,7 @@ namespace Shard
 
             base.initialize();
 
-            _toDraw = new List<Transform>();
+            _toDraw = new SortedSet<Transform>();
             _linesToDraw = new List<Line>();
             _circlesToDraw = new List<Circle>();
 
@@ -246,8 +246,9 @@ namespace Shard
                 //Size
                 sRect.x = 0;
                 sRect.y = 0;
-                sRect.w = (int)(trans.Wid * trans.Scalex * Math.Abs(trans.Y / 500));
-                sRect.h = (int)(trans.Ht * trans.Scaley * Math.Abs(trans.Y / 500));
+                sRect.w = (int)(trans.Wid * trans.Scalex * (1 + 3 * (float)trans.Y/ Bootstrap.getDisplay().getHeight()));
+                sRect.h = (int)(trans.Ht * trans.Scaley * (1 + 3 * (float)trans.Y/ Bootstrap.getDisplay().getHeight()));
+
 
                 //Position
                 tRect.x = (int)trans.X;

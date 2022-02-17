@@ -18,7 +18,7 @@ using System.Numerics;
 namespace Shard
 {
 
-    class Transform
+    class Transform : IComparable<Transform>
     {
         private GameObject owner;
         private float x, y;
@@ -27,6 +27,7 @@ namespace Shard
         private int wid, ht;
         private float scalex, scaley;
         private string spritePath;
+        private bool isBackground;
         private Vector2 forward;
         private Vector2 right, centre;
 
@@ -115,7 +116,22 @@ namespace Shard
 
         }
 
+        public int CompareTo(Transform other)
+        {
+            if (other.IsBackground)
+            {
+                return 1;
+            }
+            if (this.Y + this.Ht < other.Y+other.Ht) return -1;
+            if (this.Y+this.Ht == other.Y+other.Ht) return 0;
+            return 1;
+        }
 
+        public bool IsBackground
+        {
+            get => isBackground;
+            set => isBackground = value;
+        }
 
         public float X
         {
