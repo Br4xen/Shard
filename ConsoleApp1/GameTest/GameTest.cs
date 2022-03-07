@@ -37,13 +37,13 @@ namespace Shard
             background.Transform.X = 0;
             background.Transform.Y = 0;
             */
-            /*
+            
             GameObject wall = new Wall();
             wall.Transform.SpritePath = "wall.png";
             wall.Transform.X = 0;
             wall.Transform.Y = 0;
             wall.Transform.translate(976, 0);
-            wall.Transform.IsBackground = false;*/
+            wall.Transform.IsBackground = false;
 
         }
 
