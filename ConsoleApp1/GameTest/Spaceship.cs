@@ -38,9 +38,7 @@ namespace GameTest
 
 
             MyBody.PassThrough = true;
-            MyBody.addCircleCollider(0, 0, 5);
-            MyBody.addCircleCollider(0, 34, 5);
-            MyBody.addCircleCollider(60, 18, 5);
+            MyBody.addRectCollider(0, 50, 100, 100);
        //     MyBody.addCircleCollider();
 
             addTag("Spaceship");
