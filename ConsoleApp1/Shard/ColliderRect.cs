@@ -196,12 +196,22 @@ namespace Shard
         {
             Display d = Bootstrap.getDisplay();
 
-            d.drawLine((int)MinAndMaxX[0], (int)MinAndMaxY[0], (int)MinAndMaxX[1], (int)MinAndMaxY[0], col);
-            d.drawLine((int)MinAndMaxX[0], (int)MinAndMaxY[0], (int)MinAndMaxX[0], (int)MinAndMaxY[1], col);
-            d.drawLine((int)MinAndMaxX[1], (int)MinAndMaxY[0], (int)MinAndMaxX[1], (int)MinAndMaxY[1], col);
-            d.drawLine((int)MinAndMaxX[0], (int)MinAndMaxY[1], (int)MinAndMaxX[1], (int)MinAndMaxY[1], col);
+            d.drawLine((int)MinAndMaxX[0], (int)MinAndMaxY[0], getRightX(), (int)MinAndMaxY[0], col);
+            d.drawLine((int)MinAndMaxX[0], (int)MinAndMaxY[0], (int)MinAndMaxX[0], getBottomY(), col);
+            d.drawLine(getRightX(), (int)MinAndMaxY[0], getRightX(), getBottomY(), col);
+            d.drawLine((int)MinAndMaxX[0], getBottomY(), getRightX(), getBottomY(), col);
 
             d.drawCircle((int)X, (int)Y, 2, col);
+        }
+
+        private int getBottomY()
+        {
+            return (int) (MinAndMaxY[0] + ((MinAndMaxY[1]- MinAndMaxY[0]) * (1 + 3 * (float)myRect.Y / Bootstrap.getDisplay().getHeight())));
+        }
+
+        private int getRightX()
+        {
+            return (int) (MinAndMaxX[0] + ((MinAndMaxX[1] - MinAndMaxX[0]) * (1 + 3 * (float)myRect.Y / Bootstrap.getDisplay().getHeight())));
         }
 
         public override Vector2? checkCollision(ColliderCircle c)
