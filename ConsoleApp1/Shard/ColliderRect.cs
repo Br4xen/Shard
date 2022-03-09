@@ -53,13 +53,13 @@ namespace Shard
 
             if (fromTrans)
             {
-                Wid = (float)(MyRect.Wid * MyRect.Scalex);
-                Ht = (float)(MyRect.Ht * MyRect.Scaley);
+                Wid = (float)(MyRect.Wid * (1.0f + 3.0f * (float)myRect.Y / Bootstrap.getDisplay().getHeight()));
+                Ht = (float)(MyRect.Ht * (1.0f + 3.0f * (float)myRect.Y / Bootstrap.getDisplay().getHeight()));
             }
             else
             {
-                Wid = (float)(BaseWid * MyRect.Scalex);
-                Ht = (float)(BaseHt * MyRect.Scaley);
+                Wid = (float)(BaseWid * (1.0f + 3.0f * (float)myRect.Y / Bootstrap.getDisplay().getHeight()));
+                Ht = (float)(BaseHt * (1.0f + 3.0f * (float)myRect.Y / Bootstrap.getDisplay().getHeight()));
             }
 
             angle = (float)(Math.PI * MyRect.Rotz / 180.0f);
@@ -106,6 +106,8 @@ namespace Shard
         public float Ht { get => ht; set => ht = value; }
         public float Left { get => MinAndMaxX[0]; set => MinAndMaxX[0] = value; }
         public float Right { get => MinAndMaxX[1]; set => MinAndMaxX[1] = value; }
+        public float ScaledRight { get => getRightX();}
+        public float ScaledBottom { get => getBottomY();}
         public float Top { get => MinAndMaxY[0]; set => MinAndMaxY[0] = value; }
         public float Bottom { get => MinAndMaxY[1]; set => MinAndMaxY[1] = value; }
         public float BaseWid { get => baseWid; set => baseWid = value; }
@@ -123,12 +125,12 @@ namespace Shard
 
             // A set of calculations that gives us the Minkowski difference
             // for this intersection.
-            left = Left - other.Right;
-            top = other.Top - Bottom;
+            left = Left - other.ScaledRight;
+            top = other.Top - ScaledBottom;
             width = Wid + other.Wid;
             height = Ht + other.Ht;
-            right = Right - other.Left;
-            bottom = other.Bottom - Top;
+            right = ScaledRight - other.Left;
+            bottom = other.ScaledBottom - Top;
 
             mink.Wid = width;
             mink.Ht = height;
@@ -196,10 +198,10 @@ namespace Shard
         {
             Display d = Bootstrap.getDisplay();
 
-            d.drawLine((int)MinAndMaxX[0], (int)MinAndMaxY[0], getRightX(), (int)MinAndMaxY[0], col);
-            d.drawLine((int)MinAndMaxX[0], (int)MinAndMaxY[0], (int)MinAndMaxX[0], getBottomY(), col);
-            d.drawLine(getRightX(), (int)MinAndMaxY[0], getRightX(), getBottomY(), col);
-            d.drawLine((int)MinAndMaxX[0], getBottomY(), getRightX(), getBottomY(), col);
+            d.drawLine((int)MinAndMaxX[0], (int)MinAndMaxY[0], (int)ScaledRight, (int)MinAndMaxY[0], col);
+            d.drawLine((int)MinAndMaxX[0], (int)MinAndMaxY[0], (int)MinAndMaxX[0], (int)ScaledBottom, col);
+            d.drawLine((int)ScaledRight, (int)MinAndMaxY[0], (int)ScaledRight, (int)ScaledBottom, col);
+            d.drawLine((int)MinAndMaxX[0], (int)ScaledBottom, (int)ScaledRight, (int)ScaledBottom, col);
 
             d.drawCircle((int)X, (int)Y, 2, col);
         }
@@ -212,6 +214,11 @@ namespace Shard
         private int getRightX()
         {
             return (int) (MinAndMaxX[0] + ((MinAndMaxX[1] - MinAndMaxX[0]) * (1 + 3 * (float)myRect.Y / Bootstrap.getDisplay().getHeight())));
+        }
+
+        private float getScaleFactor()
+        {
+            return 1 + 3 * (float)myRect.Y / Bootstrap.getDisplay().getHeight();
         }
 
         public override Vector2? checkCollision(ColliderCircle c)

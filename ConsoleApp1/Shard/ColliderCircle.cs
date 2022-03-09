@@ -181,7 +181,7 @@ namespace Shard
         {
             Display d = Bootstrap.getDisplay();
 
-            d.drawCircle((int)X, (int)Y, (int)Rad, col);
+            d.drawCircle((int)X, (int)Y, (int)(Rad * (1 + 3 * (float)myRect.Y / Bootstrap.getDisplay().getHeight())), col);
 
         }
 
