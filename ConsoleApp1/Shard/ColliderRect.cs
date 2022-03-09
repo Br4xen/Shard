@@ -42,6 +42,11 @@ namespace Shard
 
         }
 
+        private float getScaleFactor()
+        {
+            return 1 + 3 * (float)myRect.Y / Bootstrap.getDisplay().getHeight();
+        }
+
         public void calculateBoundingBox()
         {
             float nwid, nht, angle, x1, x2, y1, y2;
@@ -58,10 +63,15 @@ namespace Shard
             }
             else
             {
+                Wid = (float)(BaseWid * getScaleFactor());
+                Ht = (float)(BaseHt * getScaleFactor());
+            }
+            /*else
+            {
                 Wid = (float)(BaseWid * MyRect.Scalex);
                 Ht = (float)(BaseHt * MyRect.Scaley);
             }
-
+            */
             angle = (float)(Math.PI * MyRect.Rotz / 180.0f);
 
 
