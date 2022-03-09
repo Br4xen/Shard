@@ -19,6 +19,7 @@ namespace Shard
         public void createShip()
         {
             GameObject ship = new Spaceship();
+            GameObject car = new Car();
             Random rand = new Random();
             int offsetx = 0, offsety = 0;
 
