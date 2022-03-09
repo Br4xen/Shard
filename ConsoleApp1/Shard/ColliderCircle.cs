@@ -15,7 +15,7 @@ namespace Shard
     class ColliderCircle : Collider
     {
         private Transform myRect;
-        private float x, y, rad;
+        private float x, y, rad, inRad;
         private float xoff, yoff;
         private bool fromTrans;
         public ColliderCircle(CollisionHandler gob, Transform t) : base(gob)
@@ -34,7 +34,7 @@ namespace Shard
             X = Xoff;
             Y = Yoff;
             Rad = rad;
-
+            inRad = rad;
             this.MyRect = t;
 
             fromTrans = false;
@@ -45,6 +45,10 @@ namespace Shard
 
         public ColliderCircle(CollisionHandler gob) : base(gob)
         {
+        }
+        private float getScaleFactor()
+        {
+            return 1 + 3 * (float)MyRect.Y / Bootstrap.getDisplay().getHeight();
         }
 
         public void calculateBoundingBox()
@@ -62,8 +66,9 @@ namespace Shard
             }
             else
             {
-                X = (float)MyRect.X + Xoff;
-                Y = (float)MyRect.Y + Yoff;
+                Rad = inRad * getScaleFactor();
+                X = (float)MyRect.X + Xoff * getScaleFactor();
+                Y = (float)MyRect.Y + Yoff * getScaleFactor();
             }
 
                 // Now we work out the X and Y based on the rotation of the body to 
