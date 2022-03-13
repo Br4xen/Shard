@@ -380,12 +380,10 @@ namespace Shard
             float massTotal, massa, massb;
             float massProp = 0.0f;
 
-            //            Debug.getInstance().log("Active objects " + collisionsToCheck.Count);
+            //  Debug.getInstance().log("Active objects " + collisionsToCheck.Count);
 
             foreach (CollidingObject ob in collisionsToCheck)
             {
-
-
                 possibleImpulse = checkCollisionBetweenObjects(ob.A, ob.B);
 
 
@@ -525,11 +523,11 @@ namespace Shard
                             col.B = start.Owner;
                             col.A = activeObjects[i].Owner;
                         }
-
-                        if (!findColliding(col.A, col.B))
+                        collisionsToCheck.Add(col);
+                        /*if (!findColliding(col.A, col.B))
                         {
                             collisionsToCheck.Add(col);
-                        }
+                        }*/
                         //                        Debug.getInstance().log("Adding potential collision: " + col.ToString());
 
                     }
@@ -589,13 +587,14 @@ namespace Shard
             // A two pass sweep and prune.
 
             reportCollisionsInAxis(sapX);
+            Debug.Log("Checking " + collisionsToCheck.Count + " collisions");
             clearList(sapX);
 
         }
         public void broadPass()
         {
-            //broadPassSearchAndSweep();
-            broadPassBruteForce();
+            broadPassSearchAndSweep();
+            //broadPassBruteForce();
         }
 
 
