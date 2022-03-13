@@ -23,7 +23,7 @@ namespace GameTest
             MyBody.Kinematic = false;
             MyBody.ImpartForce = true;
             MyBody.ReflectOnCollision = false;
-            MyBody.addRectCollider(0, 50, 102, 74);
+            MyBody.addRectCollider(0, 53, 85, 10);
 
             //MyBody.addCircleCollider(64, 64, 64);
 

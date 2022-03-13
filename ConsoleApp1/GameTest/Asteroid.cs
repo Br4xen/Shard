@@ -35,8 +35,8 @@ namespace GameTest
             MyBody.ReflectOnCollision = true;
 
 
-            MyBody.addCircleCollider(32, 32, 30);
-  //          MyBody.addRectCollider();
+            //MyBody.addCircleCollider(32, 32, 30);
+            MyBody.addRectCollider(12, 65, 40, 10);
             Bootstrap.getInput().addListener(this);
 
             addTag("Asteroid");
