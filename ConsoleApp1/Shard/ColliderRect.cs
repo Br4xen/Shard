@@ -1,4 +1,4 @@
-﻿/*
+/*
 *
 *   The specific collider for rectangles.   Handles rect/circle, rect/rect and rect/vector.
 *   @author Michael Heron
@@ -58,8 +58,8 @@ namespace Shard
 
             if (fromTrans)
             {
-                Wid = (float)(MyRect.Wid * MyRect.Scalex);
-                Ht = (float)(MyRect.Ht * MyRect.Scaley);
+                Wid = (float)(BaseWid * getScaleFactor());
+                Ht = (float)(BaseHt * getScaleFactor());
             }
             else
             {

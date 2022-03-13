@@ -15,17 +15,14 @@ namespace GameTest
 
             setPhysicsEnabled();
 
+            MyBody.MaxTorque = 100;
             MyBody.Mass = 4;
-            MyBody.MaxForce = 10;
-            MyBody.AngularDrag = 0.01f;
-            MyBody.Drag = 0f;
-            MyBody.UsesGravity = false;
-            MyBody.StopOnCollision = false;
-            MyBody.ReflectOnCollision = false;
+            MyBody.AngularDrag = 0.1f;
+            MyBody.MaxForce = 100;
+            MyBody.StopOnCollision = true;
+            MyBody.Kinematic = false;
             MyBody.ImpartForce = true;
-
-
-            MyBody.PassThrough = true;
+            MyBody.ReflectOnCollision = false;
             MyBody.addRectCollider(0, 50, 102, 74);
 
             //MyBody.addCircleCollider(64, 64, 64);

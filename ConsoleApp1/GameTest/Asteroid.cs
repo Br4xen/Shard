@@ -1,4 +1,4 @@
-﻿using Shard;
+using Shard;
 using System.Numerics; 
 
 namespace GameTest

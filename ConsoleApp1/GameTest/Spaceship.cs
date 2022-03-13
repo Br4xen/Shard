@@ -1,4 +1,4 @@
-﻿using SDL2;
+using SDL2;
 using Shard;
 using System.Drawing;
 
@@ -28,9 +28,9 @@ namespace GameTest
             setPhysicsEnabled();
 
             MyBody.Mass = 4;
-            MyBody.MaxForce = 10;
+            MyBody.MaxForce = 5;
             MyBody.AngularDrag = 0.01f;
-            MyBody.Drag = 0f;
+            MyBody.Drag = 1f;
             MyBody.UsesGravity = false;
             MyBody.StopOnCollision = false;
             MyBody.ReflectOnCollision = false;
@@ -123,23 +123,22 @@ namespace GameTest
 
             if (turnLeft)
             {
-                this.Transform.translate(-1 * 3 * (1 + 3 * (float)this.Transform.Y / Bootstrap.getDisplay().getHeight()), 0);
+                MyBody.addForce(new System.Numerics.Vector2(-1, 0), 2.5f);
             }
 
             if (turnRight)
             {
-                this.Transform.translate(1 * 3 * (1 + 3 * (float)this.Transform.Y / Bootstrap.getDisplay().getHeight()), 0);
+                MyBody.addForce(new System.Numerics.Vector2(1, 0), 2.5f);
             }
 
             if (up)
             {
-
-                this.Transform.translate(0, -1 * 3 * (1 + 3 * (float)this.Transform.Y / Bootstrap.getDisplay().getHeight()));
+                MyBody.addForce(new System.Numerics.Vector2(0, -1), 2.5f);
             }
 
             if (down)
             {
-                this.Transform.translate(0, 1 * 3 * (1 + 3 * (float)this.Transform.Y / Bootstrap.getDisplay().getHeight()));
+                MyBody.addForce(new System.Numerics.Vector2(0, 1), 2.5f);
             }
 
 

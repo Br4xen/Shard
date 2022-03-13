@@ -23,12 +23,12 @@ namespace Shard
             Random rand = new Random();
             int offsetx = 0, offsety = 0;
 
-            GameObject asteroid;
+            //GameObject asteroid;
 
 
-            asteroid = new Asteroid();
-            asteroid.Transform.Z = 1;
-            asteroid.Transform.translate(500 + 100, 500);
+            //asteroid = new Asteroid();
+            //asteroid.Transform.Z = 1;
+            //asteroid.Transform.translate(500 + 100, 500);
 //            asteroid.MyBody.Kinematic = true;
      
 

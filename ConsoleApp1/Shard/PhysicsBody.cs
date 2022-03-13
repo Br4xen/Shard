@@ -309,7 +309,7 @@ namespace Shard
 
             force = this.force.Length();
 
-			trans.translate(this.force);
+			trans.translate(this.force * 3 * (1 + 3 * (float)this.Trans.Y / Bootstrap.getDisplay().getHeight()));
 
             if (force < Drag)
             {
