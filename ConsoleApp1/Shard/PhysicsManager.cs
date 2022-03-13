@@ -1,4 +1,4 @@
-﻿/*
+/*
 *
 *   The Shard Physics Manager.   
 *   
@@ -348,12 +348,12 @@ namespace Shard
 
                     if (findColliding(allPhysicsObjects[i], allPhysicsObjects[j]))
                     {
-                        continue;
+                        //continue;
                     }
 
                     if (findColliding(allPhysicsObjects[j], allPhysicsObjects[i]))
                     {
-                        continue;
+                        //continue;
                     }
 
                     tmp = new CollidingObject();
@@ -594,8 +594,8 @@ namespace Shard
         }
         public void broadPass()
         {
-            broadPassSearchAndSweep();
-            //            broadPassBruteForce();
+            //broadPassSearchAndSweep();
+            broadPassBruteForce();
         }
 
 
