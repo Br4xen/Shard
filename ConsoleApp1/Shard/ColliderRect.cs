@@ -16,7 +16,7 @@ namespace Shard
     {
         private Transform myRect;
         private float baseWid, baseHt;
-        private float x, y, wid, ht;
+        private float x, y, wid, ht, xOffset, yOffset;
         private bool fromTrans;
 
 
@@ -33,6 +33,8 @@ namespace Shard
         {
             X = x;
             Y = y;
+            xOffset = x;
+            yOffset = y;
             BaseWid = wid;
             BaseHt = ht;
 
@@ -82,8 +84,8 @@ namespace Shard
             nwid = (float)(Math.Abs(Wid * cos) + Math.Abs(Ht * sin));
             nht = (float)(Math.Abs(Wid * sin) + Math.Abs(Ht * cos));
 
-            X = (float)MyRect.X + (Wid / 2);
-            Y = (float)MyRect.Y + (Ht / 2);
+            X = (float)MyRect.X + (Wid / 2) + xOffset * getScaleFactor();
+            Y = (float)MyRect.Y + (Ht / 2) + yOffset * getScaleFactor();
 
             Wid = nwid;
             Ht = nht;
