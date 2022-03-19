@@ -123,7 +123,7 @@ namespace Shard
                 return 1;
             }
             if (this.Y + this.Ht < other.Y+other.Ht) return -1;
-            if (this.Y+this.Ht == other.Y+other.Ht) return 0;
+            if (this.Y+this.Ht == other.Y+other.Ht) return 1;
             return 1;
         }
 
