@@ -10,7 +10,11 @@ namespace GameTest
             this.Transform.SpritePath = "perspective_colour-without-wall.png";
             this.Transform.IsBackground = true;
 
-            //setPhysicsEnabled();
+            setPhysicsEnabled();
+
+            MyBody.Kinematic = true;
+
+            MyBody.addLineCollider(586, 740, 450, 263);
 
             //MyBody.addCircleCollider(64, 64, 64);
 
