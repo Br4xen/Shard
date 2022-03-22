@@ -648,3 +648,20 @@ C:\Education\GameEngineArchitecture\Shard\ConsoleApp1\obj\Debug\net5.0\Shard.dll
 C:\Education\GameEngineArchitecture\Shard\ConsoleApp1\obj\Debug\net5.0\ref\Shard.dll
 C:\Education\GameEngineArchitecture\Shard\ConsoleApp1\obj\Debug\net5.0\Shard.pdb
 C:\Education\GameEngineArchitecture\Shard\ConsoleApp1\obj\Debug\net5.0\Shard.genruntimeconfig.cache
+C:\Users\olive\source\repos\Shard 0.1.0\0.1.0\ShardAssignment\ConsoleApp1\bin\Debug\net5.0\Shard.exe
+C:\Users\olive\source\repos\Shard 0.1.0\0.1.0\ShardAssignment\ConsoleApp1\bin\Debug\net5.0\Shard.deps.json
+C:\Users\olive\source\repos\Shard 0.1.0\0.1.0\ShardAssignment\ConsoleApp1\bin\Debug\net5.0\Shard.runtimeconfig.json
+C:\Users\olive\source\repos\Shard 0.1.0\0.1.0\ShardAssignment\ConsoleApp1\bin\Debug\net5.0\Shard.runtimeconfig.dev.json
+C:\Users\olive\source\repos\Shard 0.1.0\0.1.0\ShardAssignment\ConsoleApp1\bin\Debug\net5.0\Shard.dll
+C:\Users\olive\source\repos\Shard 0.1.0\0.1.0\ShardAssignment\ConsoleApp1\bin\Debug\net5.0\ref\Shard.dll
+C:\Users\olive\source\repos\Shard 0.1.0\0.1.0\ShardAssignment\ConsoleApp1\bin\Debug\net5.0\Shard.pdb
+C:\Users\olive\source\repos\Shard 0.1.0\0.1.0\ShardAssignment\ConsoleApp1\obj\Debug\net5.0\Shard.csproj.AssemblyReference.cache
+C:\Users\olive\source\repos\Shard 0.1.0\0.1.0\ShardAssignment\ConsoleApp1\obj\Debug\net5.0\Shard.csproj.ResolveComReference.cache
+C:\Users\olive\source\repos\Shard 0.1.0\0.1.0\ShardAssignment\ConsoleApp1\obj\Debug\net5.0\Shard.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\olive\source\repos\Shard 0.1.0\0.1.0\ShardAssignment\ConsoleApp1\obj\Debug\net5.0\Shard.AssemblyInfoInputs.cache
+C:\Users\olive\source\repos\Shard 0.1.0\0.1.0\ShardAssignment\ConsoleApp1\obj\Debug\net5.0\Shard.AssemblyInfo.cs
+C:\Users\olive\source\repos\Shard 0.1.0\0.1.0\ShardAssignment\ConsoleApp1\obj\Debug\net5.0\Shard.csproj.CoreCompileInputs.cache
+C:\Users\olive\source\repos\Shard 0.1.0\0.1.0\ShardAssignment\ConsoleApp1\obj\Debug\net5.0\Shard.dll
+C:\Users\olive\source\repos\Shard 0.1.0\0.1.0\ShardAssignment\ConsoleApp1\obj\Debug\net5.0\ref\Shard.dll
+C:\Users\olive\source\repos\Shard 0.1.0\0.1.0\ShardAssignment\ConsoleApp1\obj\Debug\net5.0\Shard.pdb
+C:\Users\olive\source\repos\Shard 0.1.0\0.1.0\ShardAssignment\ConsoleApp1\obj\Debug\net5.0\Shard.genruntimeconfig.cache
