@@ -35,6 +35,7 @@ namespace Shard
         public abstract Vector2? checkCollision(Vector2 c);
 
         public abstract Vector2? checkCollision(ColliderCircle c);
+        public abstract Vector2? checkCollision(ColliderLine c);
 
         public virtual Vector2? checkCollision(Collider c)
         {
@@ -47,6 +48,11 @@ namespace Shard
             if (c is ColliderCircle)
             {
                 return checkCollision((ColliderCircle)c);
+            }
+
+            if (c is ColliderLine)
+            {
+                return checkCollision((ColliderLine)c);
             }
 
             Debug.getInstance().log("Bug");

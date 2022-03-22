@@ -254,6 +254,210 @@ namespace Shard
             return null;
         }
 
+        private Vector2 PerpendicularClockwise(Vector2 vector2)
+        {
+            return new Vector2(vector2.Y, -vector2.X);
+        }
+
+        private Vector2 PerpendicularCounterClockwise(Vector2 vector2)
+        {
+            return new Vector2(-vector2.Y, vector2.X);
+        }
+
+        public static float GetY(Vector2 point1, Vector2 point2, float x)
+        {
+            var m = (point2.Y - point1.Y) / (point2.X - point1.X);
+            var b = point1.Y - (m * point1.X);
+
+            return m * x + b;
+        }
+
+        private Vector2? CalculatePenetration(ColliderLine c, float firstX, float firstY, float secondX, float secondY)
+        {
+            Vector2? impulse;
+
+            var m = (c.Y2 - c.Y1) / (c.X2 - c.X1);
+            var b = c.Y1 - (m * c.X1);
+
+            var mPerpendicular = -1 / m;
+
+            var firstB = firstY - mPerpendicular * firstX;
+
+            var firstIntersectionX = (firstB - b) / (m - mPerpendicular);
+            var firstIntersectionY = m * firstIntersectionX + b;
+
+            var firstDistance = Math.Sqrt(Math.Pow(firstX - firstIntersectionX, 2) + Math.Pow(firstY - firstIntersectionY, 2));
+            Debug.getInstance().log("Intersection: (" + firstIntersectionX + ", " + firstIntersectionY + ")" + " Right: (" + Right + ", " + Top + ") Distance: " + firstDistance);
+
+            var secondB = secondY - mPerpendicular * secondX;
+
+            var secondIntersectionX = (secondB - b) / (m - mPerpendicular);
+            var secondIntersectionY = m * secondIntersectionX + b;
+
+            var secondDistance = Math.Sqrt(Math.Pow(secondX - secondIntersectionX, 2) + Math.Pow(secondY - secondIntersectionY, 2));
+            Debug.getInstance().log("Intersection: (" + secondIntersectionX + ", " + secondIntersectionY + ")" + " Right: (" + Right + ", " + Top + ") Distance: " + secondDistance);
+
+            if (Math.Max(firstDistance, secondDistance) == firstDistance)
+            {
+                impulse = new Vector2(firstIntersectionX - firstX, firstIntersectionY - firstY);
+            }
+            else
+            {
+                impulse = new Vector2(secondIntersectionX - secondX, secondIntersectionY - secondY);
+            }
+
+            return impulse;
+        }
+        private Vector2? CalculatePenetration(ColliderLine c, float firstX, float firstY)
+        {
+            Vector2? impulse;
+
+            var m = (c.Y2 - c.Y1) / (c.X2 - c.X1);
+            var b = c.Y1 - (m * c.X1);
+
+            var mPerpendicular = -1 / m;
+
+            var firstB = firstY - mPerpendicular * firstX;
+
+            var firstIntersectionX = (firstB - b) / (m - mPerpendicular);
+            var firstIntersectionY = m * firstIntersectionX + b;
+
+            var firstDistance = Math.Sqrt(Math.Pow(firstX - firstIntersectionX, 2) + Math.Pow(firstY - firstIntersectionY, 2));
+            Debug.getInstance().log("Intersection: (" + firstIntersectionX + ", " + firstIntersectionY + ")" + " Right: (" + Right + ", " + Top + ") Distance: " + firstDistance);
+
+            impulse = new Vector2(firstIntersectionX - firstX, firstIntersectionY - firstY);
+
+            return impulse;
+        }
+
+        public override Vector2? checkCollision(ColliderLine c)
+        {
+            if (!(Bottom > c.Top && Top < c.Bottom))
+            {
+                return null;
+            }
+            Vector2 LineVector = new Vector2(c.X2 - c.X1, c.Y2 - c.Y1);
+
+            Vector2 TRVector = new Vector2(c.X2 - Right, c.Y2 - Top);
+            Vector2 BRVector = new Vector2(c.X2 - Right, c.Y2 - Bottom);
+            Vector2 TLVector = new Vector2(c.X2 - Left, c.Y2 - Top);
+            Vector2 BLVector = new Vector2(c.X2 - Left, c.Y2 - Bottom);
+            Vector2 CVector = new Vector2(c.X2 - X, c.Y2 - Y);
+
+            float CTR = (LineVector.X * TRVector.Y) - (LineVector.Y * TRVector.X);
+            float CBR = (LineVector.X * BRVector.Y) - (LineVector.Y * BRVector.X);
+            float CTL = (LineVector.X * TLVector.Y) - (LineVector.Y * TLVector.X);
+            float CBL = (LineVector.X * BLVector.Y) - (LineVector.Y * BLVector.X);
+            float CC = (LineVector.X * CVector.Y) - (LineVector.Y * CVector.X);
+
+            //Debug.getInstance().log("CTR: " + CTR);
+
+            Boolean topEdgeIsIntersecting = CTL * CTR < 0 && Top >= c.Top;
+            Boolean bottomEdgeIsIntersecting = CBL * CBR < 0 && Bottom <= c.Bottom;
+            Boolean rightEdgeIsIntersecting = CTR * CBR < 0 && Right <= c.Right;
+            Boolean leftEdgeIsIntersecting = CTL * CBL < 0 && Left >= c.Left;
+            Boolean leftLeaning = CTR * CC < 0;
+            Boolean topLeaning = CBR * CC < 0;
+
+
+            if (topLeaning)
+            {
+                //Debug.getInstance().log("TopLeaning");
+            }
+
+            //Debug.getInstance().log("y = " + m + "x + " + b);
+            //return m * x + b;
+
+            if (topEdgeIsIntersecting && bottomEdgeIsIntersecting && !rightEdgeIsIntersecting && !leftEdgeIsIntersecting)
+            {
+                //if (CC)
+                if (leftLeaning)
+                {
+
+                    var topRightX = Right;
+                    var topRightY = Top;
+
+                    var bottomRightX = Right;
+                    var bottomRightY = Bottom;
+
+                    return CalculatePenetration(c, topRightX, topRightY, bottomRightX, bottomRightY);
+
+
+                    // Find furthest of topright and bottomright to line
+                    // Push that much in the direction perpendicular to the line
+                    //Debug.getInstance().log("Collision top");
+                }
+                else
+                {
+                    var topLeftX = Left;
+                    var topLeftY = Top;
+
+                    var bottomLeftX = Left;
+                    var bottomLeftY = Bottom;
+
+                    return CalculatePenetration(c, topLeftX, topLeftY, bottomLeftX, bottomLeftY);
+                }
+            }
+            else if (!topEdgeIsIntersecting && !bottomEdgeIsIntersecting && rightEdgeIsIntersecting && leftEdgeIsIntersecting)
+            {
+                //if (CC)
+                if (topLeaning)
+                {
+                    // Find furthest of bottomright and bottomleft to line
+                    // Push that much in the direction perpendicular to the line
+                    return CalculatePenetration(c, Left, Bottom, Right, Bottom);
+                    //Debug.getInstance().log("Collision top");
+                }
+                else
+                {
+                    //Other way around
+                    return CalculatePenetration(c, Left, Top, Right, Top);
+
+                }
+            }
+            if (bottomEdgeIsIntersecting && rightEdgeIsIntersecting)
+            {
+                // Collision at bottomright corner
+                return CalculatePenetration(c, Right, Bottom);
+            }
+
+            if (bottomEdgeIsIntersecting && leftEdgeIsIntersecting)
+            {
+                // Collision at bottomleft corner
+                return CalculatePenetration(c, Left, Bottom);
+            }
+            if (topEdgeIsIntersecting && rightEdgeIsIntersecting)
+            {
+                // Collision at bottomleft corner
+                return CalculatePenetration(c, Right, Top);
+            }
+            if (topEdgeIsIntersecting && leftEdgeIsIntersecting)
+            {
+                // Collision at bottomleft corner
+                return CalculatePenetration(c, Left, Top);
+            }
+            if (topEdgeIsIntersecting)
+            {
+                // Collision at bottomleft corner
+                return new Vector2(0, c.Bottom - Top);
+            }
+            if (bottomEdgeIsIntersecting)
+            {
+                // Collision at bottomleft corner
+                return new Vector2(0, c.Top - Bottom);
+            }
+            if (rightEdgeIsIntersecting)
+            {
+                // Collision at bottomleft corner
+                return new Vector2(c.Left - Right, 0);
+            }
+            if (leftEdgeIsIntersecting)
+            {
+                // Collision at bottomleft corner
+                return new Vector2(c.Right - Left, 0);
+            }
+            return null;
+        }
     }
 
 

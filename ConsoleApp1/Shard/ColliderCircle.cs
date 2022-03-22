@@ -243,5 +243,10 @@ namespace Shard
             }
             return null;
         }
+
+        public override Vector2? checkCollision(ColliderLine c)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

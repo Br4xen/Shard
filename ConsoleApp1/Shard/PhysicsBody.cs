@@ -352,6 +352,15 @@ namespace Shard
             return cr;
         }
 
+        public ColliderLine addLineCollider(int x1, int x2, int y1, int y2)
+        {
+            ColliderLine cr = new ColliderLine((CollisionHandler)parent, x1, x2, y1, y2);
+
+            addCollider(cr);
+
+            return cr;
+        }
+
 
         public ColliderRect addRectCollider(int x, int y, int wid, int ht)
         {
