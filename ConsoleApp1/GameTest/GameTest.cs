@@ -1,4 +1,4 @@
-﻿using GameTest;
+using GameTest;
 using System;
 using System.Drawing;
 
