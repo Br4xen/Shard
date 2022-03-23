@@ -1,4 +1,4 @@
-﻿using Shard;
+using Shard;
 using System.Drawing;
 
 namespace GameTest
@@ -8,7 +8,7 @@ namespace GameTest
 
         public override void initialize()
         {
-            this.Transform.X = 200.0f;
+            this.Transform.X = 300.0f;
             this.Transform.Y = 500.0f;
             this.Transform.Z = 2.0f;
             this.Transform.SpritePath = "car.png";
