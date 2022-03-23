@@ -587,7 +587,7 @@ namespace Shard
             // A two pass sweep and prune.
 
             reportCollisionsInAxis(sapX);
-            Debug.Log("Checking " + collisionsToCheck.Count + " collisions");
+            //Debug.Log("Checking " + collisionsToCheck.Count + " collisions");
             clearList(sapX);
 
         }

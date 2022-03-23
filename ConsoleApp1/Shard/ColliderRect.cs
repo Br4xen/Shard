@@ -276,14 +276,14 @@ namespace Shard
         {
             Vector2? impulse;
 
-            var m = (c.Y2 - c.Y1) / (c.X2 - c.X1);
+            var m = (c.Y2 - c.Y1) / (c.X2 - c.X1 - 0.00000001f);
             var b = c.Y1 - (m * c.X1);
 
             var mPerpendicular = -1 / m;
 
             var firstB = firstY - mPerpendicular * firstX;
 
-            var firstIntersectionX = (firstB - b) / (m - mPerpendicular);
+            var firstIntersectionX = (firstB - b) / (m - mPerpendicular + 0.00000001f);
             var firstIntersectionY = m * firstIntersectionX + b;
 
             var firstDistance = Math.Sqrt(Math.Pow(firstX - firstIntersectionX, 2) + Math.Pow(firstY - firstIntersectionY, 2));
@@ -291,7 +291,7 @@ namespace Shard
 
             var secondB = secondY - mPerpendicular * secondX;
 
-            var secondIntersectionX = (secondB - b) / (m - mPerpendicular);
+            var secondIntersectionX = (secondB - b) / (m - mPerpendicular + 0.00000001f);
             var secondIntersectionY = m * secondIntersectionX + b;
 
             var secondDistance = Math.Sqrt(Math.Pow(secondX - secondIntersectionX, 2) + Math.Pow(secondY - secondIntersectionY, 2));
@@ -312,18 +312,18 @@ namespace Shard
         {
             Vector2? impulse;
 
-            var m = (c.Y2 - c.Y1) / (c.X2 - c.X1);
+            var m = (c.Y2 - c.Y1) / (c.X2 - c.X1 + 0.000000001f);
             var b = c.Y1 - (m * c.X1);
 
             var mPerpendicular = -1 / m;
 
             var firstB = firstY - mPerpendicular * firstX;
 
-            var firstIntersectionX = (firstB - b) / (m - mPerpendicular);
+            var firstIntersectionX = (firstB - b) / (m - mPerpendicular + 0.00000001f);
             var firstIntersectionY = m * firstIntersectionX + b;
 
             var firstDistance = Math.Sqrt(Math.Pow(firstX - firstIntersectionX, 2) + Math.Pow(firstY - firstIntersectionY, 2));
-            Debug.getInstance().log("Intersection: (" + firstIntersectionX + ", " + firstIntersectionY + ")" + " Right: (" + Right + ", " + Top + ") Distance: " + firstDistance);
+            //Debug.getInstance().log("Intersection: (" + firstIntersectionX + ", " + firstIntersectionY + ")" + " Right: (" + Right + ", " + Top + ") Distance: " + firstDistance);
 
             impulse = new Vector2(firstIntersectionX - firstX, firstIntersectionY - firstY);
 
@@ -332,10 +332,82 @@ namespace Shard
 
         public override Vector2? checkCollision(ColliderLine c)
         {
+
             if (!(Bottom > c.Top && Top < c.Bottom))
             {
                 return null;
             }
+
+            if (c.Y1 == c.Y2)
+            {
+                float[] distances = new float[4];
+                float rightDistance = Math.Abs(c.Right - Left);
+                float leftDistance = Math.Abs(c.Left - Right);
+                float topDistance = Math.Abs(c.Top - Bottom);
+                float bottomDistance = Math.Abs(c.Bottom - Top);
+
+                distances[0] = rightDistance;
+                distances[1] = leftDistance;
+                distances[2] = topDistance;
+                distances[3] = bottomDistance;
+
+                float min = float.MaxValue;
+                foreach (float f in distances)
+                {
+                    if (f < min)
+                    {
+                        min = f;
+                    }
+                }
+                //Debug.getInstance().log("                              " + c.X1 + ", " + c.X2 + " .  " + c.Y1 + ", " + c.Y2);
+                //Debug.getInstance().log("Min" + min);
+                if (min == topDistance)
+                {
+                    return new Vector2(0, -topDistance);
+                }
+                else if (min == bottomDistance)
+                {
+                    return new Vector2(0, bottomDistance);
+                }
+
+
+
+            }
+            if (c.X1 == c.X2)
+            {
+                float[] distances = new float[4];
+                float rightDistance = Math.Abs(c.Right - Left);
+                float leftDistance = Math.Abs(c.Left - Right);
+                float topDistance = Math.Abs(c.Top - Bottom);
+                float bottomDistance = Math.Abs(c.Bottom - Top);
+
+                distances[0] = rightDistance;
+                distances[1] = leftDistance;
+                distances[2] = topDistance;
+                distances[3] = bottomDistance;
+
+                float min = float.MaxValue;
+                foreach (float f in distances)
+                {
+                    if (f < min)
+                    {
+                        min = f;
+                    }
+                }
+
+                if (min == rightDistance)
+                {
+                    return new Vector2(+rightDistance, 0);
+                }
+                else if (min == leftDistance)
+                {
+                    return new Vector2(-leftDistance, 0);
+                }
+
+
+
+            }
+
             Vector2 LineVector = new Vector2(c.X2 - c.X1, c.Y2 - c.Y1);
 
             Vector2 TRVector = new Vector2(c.X2 - Right, c.Y2 - Top);
@@ -352,18 +424,13 @@ namespace Shard
 
             //Debug.getInstance().log("CTR: " + CTR);
 
-            Boolean topEdgeIsIntersecting = CTL * CTR < 0 && Top >= c.Top;
-            Boolean bottomEdgeIsIntersecting = CBL * CBR < 0 && Bottom <= c.Bottom;
-            Boolean rightEdgeIsIntersecting = CTR * CBR < 0 && Right <= c.Right;
-            Boolean leftEdgeIsIntersecting = CTL * CBL < 0 && Left >= c.Left;
-            Boolean leftLeaning = CTR * CC < 0;
-            Boolean topLeaning = CBR * CC < 0;
+            Boolean topEdgeIsIntersecting = CTL * CTR <= 0 && Top >= c.Top;
+            Boolean bottomEdgeIsIntersecting = CBL * CBR <= 0 && Bottom <= c.Bottom;
+            Boolean rightEdgeIsIntersecting = CTR * CBR <= 0 && Right <= c.Right;
+            Boolean leftEdgeIsIntersecting = CTL * CBL <= 0 && Left >= c.Left;
+            Boolean leftLeaning = CTR * CC <= 0;
+            Boolean topLeaning = CBR * CC <= 0;
 
-
-            if (topLeaning)
-            {
-                //Debug.getInstance().log("TopLeaning");
-            }
 
             //Debug.getInstance().log("y = " + m + "x + " + b);
             //return m * x + b;

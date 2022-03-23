@@ -55,19 +55,19 @@ namespace Shard
             MinAndMaxY[1] = Math.Max(Y1, Y2);
         }
 
-//        internal Transform MyRect { get => myRect; set => myRect = value; }
+        //        internal Transform MyRect { get => myRect; set => myRect = value; }
         public float X1 { get => x1; set => x1 = value; }
         public float X2 { get => x2; set => x2 = value; }
         public float Y1 { get => y1; set => y1 = value; }
         public float Y2 { get => y2; set => y2 = value; }
-/*      public float Wid { get => wid; set => wid = value; }
-        public float Ht { get => ht; set => ht = value; } */
+        /*      public float Wid { get => wid; set => wid = value; }
+                public float Ht { get => ht; set => ht = value; } */
         public float Left { get => MinAndMaxX[0]; set => MinAndMaxX[0] = value; }
         public float Right { get => MinAndMaxX[1]; set => MinAndMaxX[1] = value; }
         public float Top { get => MinAndMaxY[0]; set => MinAndMaxY[0] = value; }
         public float Bottom { get => MinAndMaxY[1]; set => MinAndMaxY[1] = value; }
-/*        public float BaseWid { get => baseWid; set => baseWid = value; }
-        public float BaseHt { get => baseHt; set => baseHt = value; } */
+        /*        public float BaseWid { get => baseWid; set => baseWid = value; }
+                public float BaseHt { get => baseHt; set => baseHt = value; } */
 
         public override void recalculate()
         {
@@ -147,20 +147,21 @@ namespace Shard
                 return cr.calculatePenetration(new Vector2(0, 0));
             } */
 
-            Debug.getInstance().log("Line");
 
-            return null;
+
+            return other.checkCollision(this);
 
         }
 
         public override void drawMe(Color col)
         {
             Display d = Bootstrap.getDisplay();
-
+            /*
             d.drawLine((int)MinAndMaxX[0], (int)MinAndMaxY[0], (int)MinAndMaxX[1], (int)MinAndMaxY[0], Color.Purple);
             d.drawLine((int)MinAndMaxX[0], (int)MinAndMaxY[0], (int)MinAndMaxX[0], (int)MinAndMaxY[1], Color.Purple);
             d.drawLine((int)MinAndMaxX[1], (int)MinAndMaxY[0], (int)MinAndMaxX[1], (int)MinAndMaxY[1], Color.Purple);
             d.drawLine((int)MinAndMaxX[0], (int)MinAndMaxY[1], (int)MinAndMaxX[1], (int)MinAndMaxY[1], Color.Purple);
+            */
 
             d.drawLine((int)X1, (int)Y1, (int)X2, (int)Y2, col);
         }
@@ -205,7 +206,7 @@ namespace Shard
 
         public override Vector2? checkCollision(ColliderLine c)
         {
-            throw new NotImplementedException();
+            return null;
         }
     }
 

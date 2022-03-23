@@ -135,7 +135,7 @@ namespace Shard
 
             if (gob.Transform.SpritePath == null)
             {
-                Debug.Log("Bleh");
+                //Debug.Log("Sprite path is null");
 
                 return;
             }
