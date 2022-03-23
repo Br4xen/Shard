@@ -1,5 +1,5 @@
 using Shard;
-using System.Numerics; 
+using System.Numerics;
 
 namespace GameTest
 {
@@ -86,7 +86,8 @@ namespace GameTest
             return "Asteroid: [" + Transform.X + ", " + Transform.Y + ", " + Transform.Wid + ", " + Transform.Ht + "]";
         }
 
-        public override void killMe() {
+        public override void killMe()
+        {
             base.killMe();
             Bootstrap.getInput().removeListener(this);
         }
