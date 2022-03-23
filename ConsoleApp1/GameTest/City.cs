@@ -14,7 +14,14 @@ namespace GameTest
 
             MyBody.Kinematic = true;
 
-            MyBody.addLineCollider(586, 740, 450, 263);
+
+
+            //MyBody.addLineCollider(0, 230, 630, 634);
+            //MyBody.addLineCollider(245, 400, 632, 450);
+            //MyBody.addLineCollider(400, 586, 450, 450);
+            //MyBody.addLineCollider(586, 740, 450, 263);
+            //MyBody.addLineCollider(740, 1225, 263, 263);
+            //MyBody.addLineCollider(1225, 977, 263, 756);
 
             //MyBody.addCircleCollider(64, 64, 64);
 
